@@ -48,7 +48,10 @@ A web application built with [Next.js](https://nextjs.org/) to help users find t
 4. Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ## Project Structure
+<img width="1440" alt="Screenshot 2025-07-08 at 4 13 44 PM" src="https://github.com/user-attachments/assets/a40b950d-961b-4636-b820-1d795c989c70" />
 
-<img width="604" alt="Screenshot 2025-07-02 at 3 21 17 PM" src="https://github.com/user-attachments/assets/e816847c-eede-4aa7-883a-d6f597577171" />
+<img width="690" alt="Screenshot 2025-07-08 at 4 27 48 PM" src="https://github.com/user-attachments/assets/650e7492-6c55-430f-8983-437a06c07356" />
 
-<img width="912" alt="Screenshot 2025-07-02 at 3 17 45 PM" src="https://github.com/user-attachments/assets/9e67cf9e-2cf4-474a-a2cb-a83fc15c4686" />
+
+
+
