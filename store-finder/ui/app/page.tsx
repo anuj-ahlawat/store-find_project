@@ -41,6 +41,7 @@ const Page: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [showCount, setShowCount] = useState<number>(10);
   const [selectedStoreIds, setSelectedStoreIds] = useState<number[]>([]);
+  const [orcDownloading, setOrcDownloading] = useState<boolean>(false);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -126,6 +127,37 @@ const Page: React.FC = () => {
     document.body.appendChild(downloadAnchorNode);
     downloadAnchorNode.click();
     downloadAnchorNode.remove();
+  };
+
+  const handleDownloadOrc = async () => {
+    if (!result || selectedStoreIds.length === 0) {
+      alert("Please select at least one store to download as ORC.");
+      return;
+    }
+    if (orcDownloading) return; 
+
+    setOrcDownloading(true);
+    try {
+      const storeIdsParam = selectedStoreIds.join(",");
+      const url = `/api/proxy?lat=${lat}&lon=${lon}&radius_km=${radius}&format=orc&store_ids=${storeIdsParam}`;
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error("Failed to download ORC file");
+      }
+      const blob = await response.blob();
+      const downloadUrl = window.URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = downloadUrl;
+      a.download = "stores.orc";
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      window.URL.revokeObjectURL(downloadUrl);
+    } catch (err) {
+      alert("Failed to download ORC file.");
+    } finally {
+      setOrcDownloading(false);
+    }
   };
 
   return (
@@ -218,9 +250,14 @@ const Page: React.FC = () => {
                   </label>
                   <span style={{ color: "#6b7280", fontSize: 14 }}>(Total found: {result.total_stores_found})</span>
                 </div>
-                <button onClick={handleDownload} style={{ background: "#059669", color: "#fff", border: "none", borderRadius: 8, padding: "8px 16px", fontWeight: 600, fontSize: 16, display: "flex", alignItems: "center", gap: 8, cursor: selectedStoreIds.length === 0 ? "not-allowed" : "pointer", opacity: selectedStoreIds.length === 0 ? 0.7 : 1, transition: "background 0.2s" }} disabled={selectedStoreIds.length === 0}>
-                  <FaDownload /> Download Selected as JSON
-                </button>
+                <div style={{ display: "flex", gap: 8 }}>
+                  <button onClick={handleDownload} style={{ background: "#059669", color: "#fff", border: "none", borderRadius: 8, padding: "8px 16px", fontWeight: 600, fontSize: 16, display: "flex", alignItems: "center", gap: 8, cursor: selectedStoreIds.length === 0 ? "not-allowed" : "pointer", opacity: selectedStoreIds.length === 0 ? 0.7 : 1, transition: "background 0.2s" }} disabled={selectedStoreIds.length === 0}>
+                    <FaDownload /> Download Selected as JSON
+                  </button>
+                  <button onClick={handleDownloadOrc} style={{ background: "#1e40af", color: "#fff", border: "none", borderRadius: 8, padding: "8px 16px", fontWeight: 600, fontSize: 16, display: "flex", alignItems: "center", gap: 8, cursor: selectedStoreIds.length === 0 || orcDownloading ? "not-allowed" : "pointer", opacity: selectedStoreIds.length === 0 || orcDownloading ? 0.7 : 1, transition: "background 0.2s" }} disabled={selectedStoreIds.length === 0 || orcDownloading}>
+                    <FaDownload /> {orcDownloading ? "Downloading ORC..." : "Download as ORC"}
+                  </button>
+                </div>
               </div>
               <div style={{ overflowX: "auto", marginTop: 12, maxHeight: 350, overflowY: "auto" }}>
                 <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 15 }}>
