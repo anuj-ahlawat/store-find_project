@@ -5,8 +5,9 @@ A web application built with [Next.js](https://nextjs.org/) to help users find t
 ## Features
 
 - Find stores near your current location
-- You can also select stores from list
-- Download the json file of list
+- Select stores from a list
+- Download the list of stores as a JSON file
+- **ORC Download:** Download the list of stores in ORC (Optimized Row Columnar) format for efficient data processing and analytics
 
 ## Getting Started
 
@@ -34,7 +35,6 @@ A web application built with [Next.js](https://nextjs.org/) to help users find t
    pnpm install
    ```
 
-
 3. Run the development server:
 
    ```bash
@@ -47,10 +47,20 @@ A web application built with [Next.js](https://nextjs.org/) to help users find t
 
 4. Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-## Project Structure
-<img width="1440" alt="Screenshot 2025-07-08 at 4 13 44 PM" src="https://github.com/user-attachments/assets/a40b950d-961b-4636-b820-1d795c989c70" />
+## Usage
 
-<img width="690" alt="Screenshot 2025-07-08 at 4 27 48 PM" src="https://github.com/user-attachments/assets/650e7492-6c55-430f-8983-437a06c07356" />
+- Use the web interface to find the nearest store based on your current location.
+- Browse and select stores from the provided list.
+- Download the list of stores in JSON or ORC format using the download buttons.
+
+## Project Structure
+<img width="763" height="524" alt="Screenshot 2025-07-28 at 3 55 31 PM" src="https://github.com/user-attachments/assets/2d2ef47a-6668-459e-a162-c5a13ecde77d" />
+
+
+<img width="1342" height="737" alt="Screenshot 2025-07-28 at 3 55 17 PM" src="https://github.com/user-attachments/assets/5d6365e3-aacd-4ee4-8151-0e9069a379b7" />
+
+
+
 
 
 
