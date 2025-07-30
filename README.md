@@ -77,9 +77,10 @@ Returns the same filtered list as an ORC file (binary download).
 
 ### Screenshots
 
-![App Structure](https://github.com/user-attachments/assets/a40b950d-961b-4636-b820-1d795c989c70)
+<img width="1067" height="769" alt="Screenshot 2025-07-30 at 11 46 52 PM" src="https://github.com/user-attachments/assets/5a4a3c86-a9eb-4e82-b3ea-60fb44cf22c8" />
 
-![Store List UI](https://github.com/user-attachments/assets/650e7492-6c55-430f-8983-437a06c07356)
+<img width="589" height="632" alt="Screenshot 2025-07-30 at 11 47 24 PM" src="https://github.com/user-attachments/assets/e90ff7a2-caca-4ae2-9aba-fbbcec48e76e" />
+
 
 ## Development & Testing
 
