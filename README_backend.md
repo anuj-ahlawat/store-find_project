@@ -1,33 +1,75 @@
-# 🗺️ Nearest Store Finder API
+# Store Finder API
 
-This project is a RESTful API built using **Flask**, **PySpark**, and the **Haversine formula** to calculate and return the nearest stores within a given radius from a user-provided latitude and longitude.
+This project provides a Flask API to find the nearest stores within a given radius using PySpark for fast geospatial calculations.
 
----
+## Features
+- Find nearest stores by latitude, longitude, and radius (km)
+- Returns results as JSON or downloadable ORC file
+- Uses the Haversine formula for distance calculation
 
-## 🚀 Features
+## Requirements
+- Python 3.8–3.10 (PySpark is not yet compatible with Python 3.13)
+- Java 17 (required by recent PySpark/Spark builds)
+- pip (Python package manager)
+- macOS/Linux/Windows
 
-- Accepts user location via query parameters
-- Reads store data from a CSV file
-- Calculates distance using the Haversine formula (via PySpark UDF)
-- Returns all stores within a given radius
-- Sorts results by closest distance
-- Includes total count and nearest store in the response
+## Setup
 
----
+1. **Clone the repository** (if not already):
+   ```sh
+   git clone <repo-url>
+   cd bigdata-docker-env
+   ```
 
-## 📥 API Endpoint
+2. **Create and activate a virtual environment:**
+   ```sh
+   python3.10 -m venv .venv
+   source .venv/bin/activate
+   ```
+   *(Replace `python3.10` with your installed Python 3.8–3.10 version)*
 
-### `GET /nearest-stores`
+3. **Install dependencies:**
+   ```sh
+   pip install flask flask-cors pyspark
+   ```
 
-#### 🔸 Query Parameters:
+4. **Set JAVA_HOME to Java 17:**
+   ```sh
+   export JAVA_HOME=$(/usr/libexec/java_home -v17)
+   export PATH=$JAVA_HOME/bin:$PATH
+   java -version  # Should show Java 17
+   ```
 
-| Name       | Type   | Required | Description                     |
-|------------|--------|----------|---------------------------------|
-| `lat`      | float  | ✅ Yes   | Latitude of the user           |
-| `lon`      | float  | ✅ Yes   | Longitude of the user          |
-| `radius_km`| float  | ✅ Yes   | Radius (in kilometers) to search within |
+5. **Ensure `stores.csv` is present in the project root.**
 
-#### 📤 Sample Request:
+## Running the API
 
-```http
-GET /nearest-stores?lat=28.6139&lon=77.2090&radius_km=10
+```sh
+python api.py
+```
+
+The API will be available at `http://127.0.0.1:5000/`.
+
+### Endpoints
+- `/nearest-stores?lat=<lat>&lon=<lon>&radius_km=<radius>`
+  - Returns JSON with nearest stores within the radius.
+- `/nearest-stores-orc?lat=<lat>&lon=<lon>&radius_km=<radius>`
+  - Returns an ORC file with the results.
+
+## Example Request
+
+```
+curl "http://127.0.0.1:5000/nearest-stores?lat=28.61&lon=77.23&radius_km=10"
+```
+
+## Troubleshooting
+- **Java errors:**
+  - Make sure you are using Java 17 (`java -version`).
+  - Set `JAVA_HOME` as shown above.
+- **Python errors:**
+  - Use Python 3.8–3.10. PySpark is not compatible with Python 3.13.
+- **PySpark errors:**
+  - Reinstall PySpark after setting the correct Java version.
+
+## License
+MIT 
